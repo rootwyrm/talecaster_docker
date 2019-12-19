@@ -6,6 +6,11 @@ on:
       - master
       - release/*
       - mono_ci/*
+    paths:
+      - 'tc_*/*'
+      - '!hooks/*'
+      - '!docs/*'
+    
   pull_request:
     branches: 
       - master
@@ -18,7 +23,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: Build the Docker image
+    - name: Build the Docker images
       run: for k in `ls tc_*` ; do 
            docker build $k --file $k/Dockerfile --tag my-image-name:$(date +%s)
            
